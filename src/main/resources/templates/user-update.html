@@ -22,16 +22,17 @@
 <body>
 <form th:method="POST" th:action="@{/admin/updateUser}" th:object="${user}">
     <input type="hidden" th:field="*{id}" />
-    <label for="firstname">Введите имя: </label>
+    <label for="firstname">Имя: </label>z
     <input type="text" th:field="*{firstName}" th:value="${user.getFirstName()}"  id="firstname">
-    <label for="secondName">Введите фамилию: </label>
+    <label for="secondName">Фамилия: </label>
     <input type="text" th:field="*{secondName}" th:value="${user.getSecondName()}" id="secondName">
-    <label for="age">Введите возраст: </label>
+    <label for="age">Возраст: </label>
     <input type="text" th:field="*{age}" th:value="${user.getAge()}" id="age">
-    <label for="username">Введите логин: </label>
+    <label for="username">Логин: </label>
     <input type="text" th:field="*{username}" th:value="${user.getUsername()}" id="username">
-    <label for="password">Введите пароль: </label>
-    <input type="text" th:field="*{password}" th:value="${user.getPassword()}" id="password">
+    <label for="password">Пароль: </label>
+    <input type="password" th:field="*{password}" minlength="1" required id="password">
+
     <label>Выберите роли:</label>
     <select multiple name="roles" id="roles">
         <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.roleName}"></option>

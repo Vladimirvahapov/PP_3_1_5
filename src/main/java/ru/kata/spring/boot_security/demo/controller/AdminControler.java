@@ -1,6 +1,8 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -31,7 +33,9 @@ public class AdminControler {
     }
 
     @GetMapping
-    public String getAllUsers(ModelMap model) {
+    public String getAllUsers(ModelMap model, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        model.addAttribute("user", userService.findByUsername(userDetails.getUsername()));
         model.addAttribute("allusers", userService.getAllUsers());
         return "/users-list";
     }

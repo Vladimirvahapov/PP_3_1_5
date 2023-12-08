@@ -21,15 +21,15 @@
 </head>
 <body>
 <form th:method="POST" th:action="@{/admin/createUser}" th:object="${user}">
-    <label for="firstName">Введите имя: </label>
+    <label for="firstName">Имя: </label>
     <input type="text" th:field="*{firstName}" th:value="${user.getFirstName()}"  id="firstName">
-    <label for="secondName">Введите фамилию: </label>
+    <label for="secondName">Фамилию: </label>
     <input type="text" th:field="*{secondName}" th:value="${user.getSecondName()}" id="secondName">
-    <label for="age">Введите возраст: </label>
+    <label for="age">Возраст: </label>
     <input type="text" th:field="*{age}" th:value="${user.getAge()}" id="age">
-    <label for="username">Введите логин: </label>
+    <label for="username">Логин: </label>
     <input type="text" th:field="*{username}" th:value="${user.getUsername()}" id="username">
-    <label for="password">Введите пароль: </label>
+    <label for="password">Пароль: </label>
     <input type="text" th:field="*{password}" th:value="${user.getPassword()}" id="password">
     <label>Выберите роли:</label>
     <select multiple name="roles" id="roles">

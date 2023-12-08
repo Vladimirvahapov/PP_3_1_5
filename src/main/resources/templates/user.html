@@ -1,53 +1,92 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <style>
-        form {
-            max-width: 600px; /* Увеличьте максимальную ширину формы */
-            margin: 0 auto;
+        body {
+            display: flex;
+        }
+
+        #sidebar {
+            width: 200px;
+            height: 100%;
+            background: #f2f2f2;
             padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            text-align: center;
+            box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
+        #content {
+            flex: 1;
+            padding: 20px;
         }
 
-        span {
-            display: block;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        form {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
             padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            font-weight: bold;
+        }
 
-            /* Увеличьте ширину строки с данными пользователя */
-            width: 100%; /* 100% ширины формы или укажите конкретное значение */
-            box-sizing: border-box; /* чтобы учитывать padding и border в общей ширине */
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
         }
     </style>
     <title>Страница пользователя</title>
 </head>
 <body>
-<form th:method="GET" th:action="@{/user/logout}" th:object="${user}">
-    <label for="firstname">Имя: </label>
-    <span th:text="${user.getFirstName()}" id="firstname"></span>
-    <br/>
-    <label for="secondName">Фамилия: </label>
-    <span th:text="${user.getSecondName()}" id="secondName"></span>
-    <br/>
-    <label for="age">Возраст: </label>
-    <span th:text="${user.getAge()}" id="age"></span>
-    <br/>
-    <label for="age">Логин: </label>
-    <span th:text="${user.getUsername()}" id="login"></span>
-    <br/>
-    <label for="age">Пароль: </label>
-    <span th:text="${user.getPassword()}" id="password"></span>
-    <br/>
+<div id="sidebar">
+    <div sec:authorize="hasAnyAuthority('ADMIN')">
+        <form th:action="@{/admin}" th:method="GET">
+            <button type="submit" th:action="@{/admin}" th:method="GET">Admin</button>
+        </form>
+    </div>
+    <div sec:authorize="hasAnyAuthority('USER')">
+        <form th:action="@{/user}" th:method="GET">
+            <button type="submit">User</button>
+        </form>
+    </div>
+</div>
+<div id="content">
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Имя</td>
+            <td>Фамилия</td>
+            <td>Возраст</td>
+            <td>Логин</td>
+            <td>Роли</td>
+        </tr>
+        <tr th:object="${user}">
+            <td th:text="${user.getId()}"></td>
+            <td th:text="${user.getFirstName()}"></td>
+            <td th:text="${user.getSecondName()}"></td>
+            <td th:text="${user.getAge()}"></td>
+            <td th:text="${user.getUsername()}"></td>
+            <td>
+                <span th:each="role : ${user.getUserRoles()}" th:text="${role.getRoleName()} + '; '"></span>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<form th:method="GET" th:action="@{/user/logout}">
     <input type="submit" value="Вернуться к авторизации"/>
 </form>
 </body>
