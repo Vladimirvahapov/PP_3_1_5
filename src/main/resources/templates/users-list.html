@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        form {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <td>Id</td>
+        <td>Имя</td>
+        <td>Фамилия</td>
+        <td>Возраст</td>
+        <td>Логин</td>
+        <td>Пароль</td>
+        <td>Роли</td>
+        <td></td>
+    </tr>
+    <tr th:each="user: ${allusers}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.secondName}"></td>
+        <td th:text="${user.age}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.password}"></td>
+        <td>
+            <span th:each="role : ${user.getUserRoles()}" th:text="${role.roleName} + '; '"></span>
+        </td>
+        <td>
+            <form th:action="@{/admin/delete}" th:method="POST">
+                <input type="hidden" name="userId" th:value="${user.id}">
+                <button type="submit">Удалить</button>
+            </form>
+            <form th:action="@{/admin/user-update}" th:method="GET">
+                <input type="hidden" name="userId" th:value="${user.id}">
+                <button type="submit">Редактировать</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<form th:action="@{/admin/user-create}" th:method="GET">
+    <button type="submit">Добавить запись</button>
+</form>
+<form th:action="@{/logout}" method="GET">
+    <input type="submit" value="Вернуться к авторизации"/>
+</form>
+</body>
+</html>

@@ -1,11 +1,50 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example</title>
+    <style>
+        form {
+            max-width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        span {
+            display: block;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+    </style>
+    <title>Страница пользователя</title>
 </head>
 <body>
-<h1>User, welcome spring boot security page!</h1>
-
-
+<form th:method="GET" th:action="@{/user/logout}" th:object="${user}">
+    <label for="firstname">Имя: </label>
+    <span th:text="${user.getFirstName()}" id="firstname"></span>
+    <br/>
+    <label for="secondName">Фамилия: </label>
+    <span th:text="${user.getSecondName()}" id="secondName"></span>
+    <br/>
+    <label for="age">Возраст: </label>
+    <span th:text="${user.getAge()}" id="age"></span>
+    <br/>
+    <label for="age">Логин: </label>
+    <span th:text="${user.getUsername()}" id="login"></span>
+    <br/>
+    <label for="age">Пароль: </label>
+    <span th:text="${user.getPassword()}" id="password"></span>
+    <br/>
+    <input type="submit" value="Вернуться к авторизации"/>
+</form>
 </body>
 </html>
