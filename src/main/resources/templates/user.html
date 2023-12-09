@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 
 <head>
     <style>
@@ -52,20 +52,18 @@
 </head>
 <body>
 <div id="sidebar">
-    <div>
-        <ul style="list-style-type: none">
-            <li th:each="userRole : ${user.getUserRoles()}" th:if="${userRole.authority.contains('ROLE_ADMIN')}">
-                <a th:href="@{/admin}">
-                    Администратор
-                </a>
-            </li>
-            <li>
-                <a aria-current="page" th:href="@{/user}">
-                    Пользователь
-                </a>
-            </li>
-        </ul>
-    </div>
+    <ul style="list-style-type: none">
+        <li th:each="userRole : ${user.getUserRoles()}" th:if="${userRole.authority.contains('ROLE_ADMIN')}">
+            <a th:href="@{/admin}">
+                Администратор
+            </a>
+        </li>
+        <li>
+            <a aria-current="page" th:href="@{/user}">
+                Пользователь
+            </a>
+        </li>
+    </ul>
 </div>
 <div id="content">
     <table>
