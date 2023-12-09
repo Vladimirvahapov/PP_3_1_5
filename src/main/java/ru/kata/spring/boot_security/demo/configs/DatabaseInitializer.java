@@ -28,8 +28,8 @@ public class DatabaseInitializer {
     @PostConstruct
     @Transactional
     public void initializeDatabase() {
-        Role adminRole = new Role("ADMIN");
-        Role userRole = new Role("USER");
+        Role adminRole = new Role("ROLE_ADMIN");
+        Role userRole = new Role("ROLE_USER");
         roleRepository.save(adminRole);
         roleRepository.save(userRole);
 

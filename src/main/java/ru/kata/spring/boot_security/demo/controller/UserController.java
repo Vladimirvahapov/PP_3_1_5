@@ -24,7 +24,6 @@ public class UserController {
     public String showUser(Model model, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("user", userService.findByUsername(userDetails.getUsername()));
-        model.addAttribute("userdetals", userDetails);
         return "/user";
     }
 

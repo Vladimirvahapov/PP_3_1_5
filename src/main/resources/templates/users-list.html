@@ -51,15 +51,20 @@
 </head>
 <body>
 <div id="sidebar">
-    <div sec:authorize="hasAnyAuthority('ADMIN')">
-        <form th:action="@{/admin}" th:method="GET">
-            <button type="submit" th:action="@{/admin}" th:method="GET">Admin</button>
-        </form>
-    </div>
-    <div sec:authorize="hasAnyAuthority('USER')">
-        <form th:action="@{/user}" th:method="GET">
-            <button type="submit">User</button>
-        </form>
+    <div>
+        <ul style="list-style-type: none">
+        <li th:each="userRole : ${user.getUserRoles()}"
+            th:if="${userRole.authority.contains('ROLE_ADMIN')}">
+            <a th:href="@{/admin}">
+                Администратор
+            </a>
+        </li>
+        <li>
+            <a aria-current="page" th:href="@{/user}">
+                Пользователь
+            </a>
+        </li>
+        </ul>
     </div>
 </div>
 <div id="content">
