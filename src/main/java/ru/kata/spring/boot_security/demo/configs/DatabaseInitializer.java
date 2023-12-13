@@ -30,15 +30,17 @@ public class DatabaseInitializer {
     public void initializeDatabase() {
         Role adminRole = new Role("ROLE_ADMIN");
         Role userRole = new Role("ROLE_USER");
-        roleRepository.save(adminRole);
-        roleRepository.save(userRole);
-
-        User userFirst = new User("Иван", "Иванович", 23, "admin", passwordEncoder.encode("admin"));
-        User userSecond = new User("Петр", "Петрович", 17, "user", passwordEncoder.encode("user"));
-        userFirst.setUserRoles(Set.of(adminRole, userRole));
-        userSecond.setUserRoles(Set.of(userRole));
-
-        userRepository.save(userFirst);
-        userRepository.save(userSecond);
+        if (roleRepository.findAll().size() == 0) {
+            roleRepository.save(adminRole);
+            roleRepository.save(userRole);
+        }
+        if (userRepository.findAll().size() == 0) {
+            User userFirst = new User("Иван", "Иванович", 23, "admin", passwordEncoder.encode("admin"));
+            User userSecond = new User("Петр", "Петрович", 17, "user", passwordEncoder.encode("user"));
+            userFirst.setUserRoles(Set.of(adminRole, userRole));
+            userSecond.setUserRoles(Set.of(userRole));
+            userRepository.save(userFirst);
+            userRepository.save(userSecond);
+        }
     }
 }

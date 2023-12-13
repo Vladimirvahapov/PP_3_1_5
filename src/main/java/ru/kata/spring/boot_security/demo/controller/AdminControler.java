@@ -36,22 +36,10 @@ public class AdminControler {
     public String getAllUsers(ModelMap model, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("user", userService.findByUsername(userDetails.getUsername()));
-        model.addAttribute("allusers", userService.getAllUsers());
+        model.addAttribute("allusers", userService.findAllWithRoles());
+        model.addAttribute("allroles", roleService.getAllRoles());
+        model.addAttribute("newUser", new User());
         return "/users-list";
-    }
-
-    @GetMapping(value = "/user-create")
-    public String createUser(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("roles", roleService.getAllRoles());
-        return "/user-create";
-    }
-
-    @GetMapping(value = "/user-update")
-    public String editUser(@RequestParam("userId") Integer userId, Model model) {
-        model.addAttribute("user", userService.getUserById(userId));
-        model.addAttribute("roles", roleService.getAllRoles());
-        return "/user-update";
     }
 
     @PostMapping(value = "/createUser")
@@ -68,7 +56,7 @@ public class AdminControler {
     }
 
     @PostMapping(value = "/updateUser")
-    public String update(@ModelAttribute("user") User user, @RequestParam(name = "roles", required = false) List<Integer> roleId) {
+    public String update(@ModelAttribute("editedUser") User user, @RequestParam(name = "roles", required = false) List<Integer> roleId) {
         Set<Role> roleSet = new HashSet<>();
         if (roleId != null) {
             for (Integer role : roleId) {
