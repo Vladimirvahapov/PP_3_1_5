@@ -31,7 +31,6 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    @Fetch(FetchMode.JOIN)
     private Set<Role> userRoles;
 
     public User() {
@@ -109,7 +108,7 @@ public class User implements UserDetails {
         if (this == obj) {
             return true;
         }
-        if (obj == null || getClass() != obj.getClass()) {
+        if (obj == null || getClass() != obj.getClass()) {3_1
             return false;
         }
         User user = (User) obj;
