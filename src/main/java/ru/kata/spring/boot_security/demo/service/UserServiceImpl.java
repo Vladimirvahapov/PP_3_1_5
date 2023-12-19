@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+
     @Override
     public void deleteUserById(Integer id) {
         userRepository.deleteById(id);
@@ -61,8 +62,15 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username);
     }
+
     @Override
     public List<User> findAllWithRoles() {
         return userRepository.findAllWithRoles();
     }
+
+    @Override
+    public User findByIdWithRoles(Integer userId) {
+        return userRepository.findByIdWithRoles(userId);
+    }
+
 }

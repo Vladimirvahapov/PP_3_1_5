@@ -14,8 +14,12 @@ public interface UserService extends UserDetailsService {
 
     void updateUser(User user);
 
+
     void deleteUserById(Integer id);
 
     User findByUsername(String username);
+
     List<User> findAllWithRoles();
+
+    User findByIdWithRoles(Integer userId);
 }

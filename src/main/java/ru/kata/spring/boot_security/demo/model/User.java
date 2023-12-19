@@ -163,4 +163,7 @@ public class User implements UserDetails {
         return true;
     }
 
+    public String getShortRole() {
+        return userRoles.toString().substring(1, userRoles.toString().length() - 1);
+    }
 }
